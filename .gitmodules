@@ -1,0 +1,9 @@
+[submodule "openproject-sync"]
+	path = openproject-sync
+	url = git@github.com:j-cray/openproject-sync.git
+[submodule "mastermind-desktop"]
+	path = mastermind-desktop
+	url = git@github.com:j-cray/mastermind-desktop.git
+[submodule "mastermind-obsidian"]
+	path = mastermind-obsidian
+	url = git@github.com:j-cray/mastermind-obsidian.git
