@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+.directory
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+.gemini/
+
+# Nix
+result
+result-*
