@@ -1,2 +1,3 @@
 # mastermind
-outwit the lobster
+
+outwit the lobster - an ai agent and framework
