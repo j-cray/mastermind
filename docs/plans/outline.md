@@ -23,6 +23,12 @@ Unlike OpenClaw's "maximalist default permissions," this agent operates on a "le
 - **AI Backend**: Google Vertex AI (Gemini 1.5 Pro for complex reasoning, Flash for quick tasks).
 - **Database**:
   - **Relational**: Cloud SQL (PostgreSQL) for transactional state (permissions, audit logs, active sessions).
+
+### Phase 3: The Interaction Layer
+
+- Connect to Messaging Apps (**Signal & Matrix**).
+- Implement **Voice Note Transcription**.
+- Implement the "Supervisor" security layer (Prompt Injection defense).
   - **Vector**: pgvector (integrated in Cloud SQL) for long-term semantic memory.
 
 ### Security layer
@@ -39,29 +45,34 @@ Unlike OpenClaw's "maximalist default permissions," this agent operates on a "le
 
 ### Architecture
 
-1. **Core Gateway (Rust - "Cerebrum")**:
+1. Core Gateway (Rust - "Cerebrum"):
    - **Event Bus**: `tokio::broadcast` channel for internal component communication.
-   - **Context Manager**: Manages the sliding window of conversation history and retrieves relevant memories via RAG.
-   - **Tool Registry**: Semantic registry of available capabilities (both local and Arcade-backed).
+   - **Context Manager**: Manages the sliding window of conversation history and retrieves relevant memories.
+   - **Proactivity Engine**: "Level 3" intrusive. Runs background loops checking Calendar/Email/Obsidian to proactively push suggestions (e.g., "Meeting in 10m, here is the doc").
+   - **Voice Processor**: Integrates Vertex AI (or local Whisper) to transcribe incoming voice notes from Signal/Matrix.
 
-2. **Arcade Tool Runtime**:
-   - Instead of running plugins locally with full access, we offload third-party integrations to Arcade's secure runtime where possible.
-   - **Auth Flow**: Agent -> Arcade SDK -> User Approval (if needed) -> External API -> Agent.
+2. Arcade Tool Runtime:
+   - **Google Calendar**: Write access (Scheduling).
+   - **GitHub**: Non-destructive actions (Read repos, comment on Issues/PRs).
+   - **Gmail** (Optional): If Arcade supports it better than generic IMAP.
 
-3. **Plugin Sandbox (Wasm)**:
-   - For custom local tools (e.g., data transformation, specific file parsers), we use **WebAssembly (Wasm)** isolation via `wasmtime`.
-   - **Capabilities**: Sandbox has *zero* capabilities by default. Host functions strictly inject specific data streams.
+3. Custom Rust/Wasm Modules ("The Workshop"):
+   - **Generic IMAP Client**: Secure Rust IMAP client for Triage (Archive, Spam, Unsubscribe). Creds stored in GCP Secret Manager.
+   - **Obsidian Bridge**: File-system watcher and editor to read daily notes for context and append tasks/journals.
+   - **Researcher Module**: A "Deep Search" agent that uses Arcade's browsing tools or Serper.dev to perform multi-step research and compile reports.
+   - **Home Assistant Bridge**: Websocket client to connect to a local Home Assistant instance (via VPN/Tailscale) for smart home control.
+   - **RSS/News Monitor**: Background service fetching feeds to feed the Proactivity Engine ("New article on Rust 1.85, here is a summary").
+   - **Plugin Sandbox**: Usage for specific data logic (e.g., parsing `openproject-sync` CSVs).
 
-4. **Supervisor System ("The Cortex")**:
-   - A specialized module that intercepts *all* tool execution requests *before* they are sent to the tool registry.
-   - **Logic**: Uses a lightweight Gemini Flash model with a "Security Auditor" system prompt to classify actions as:
-     - `Safe` (Read-only, Search): Execute immediately.
-     - `Sensitive` (Calendar write, Email draft): Require "Supervisor" approval (internal consistency check).
-     - `Critical` (Financial, Deletion, Email send): Require **User** approval via push notification.
+4. Supervisor System ("The Cortex"):
+   - **Logic**: Uses a lightweight Gemini Flash model with a "Security Auditor" system prompt. Checks:
+     - `Safe`: Read-only GitHub, Obsidian Read, Web Search, RSS Fetch.
+     - `Sensitive`: Calendar Write, Email Triage (Archive), Obsidian Write, Home Automation (Lights/Climate).
+     - `Critical`: Email Delete, Unsubscribe, Financial, Home Automation (Locks/Security), Shell Commands.
 
-5. **Communication Interface**:
-   - **Messaging**: Secure Webhook / Bot API (Telegram/Signal/Matrix).
-   - **Dashboard**: Minimal admin UI hidden behind **GCP Identity-Aware Proxy (IAP)**. No public internet surface area.
+5. Communication Interface:
+   - **Primary**: **Signal** and **Matrix** (via bridges or native libraries).
+   - **Dashboard**: Minimal admin UI hidden behind **GCP Identity-Aware Proxy (IAP)**.
 
 ## 4. Addressing OpenClaw Security Flaws
 
@@ -73,26 +84,14 @@ Unlike OpenClaw's "maximalist default permissions," this agent operates on a "le
 | **Prompt Injection** | **Dual-LLM Supervisor** + **Arcade Scopes**: A Supervisor LLM checks intent. Arcade enforces strict API scopes, limiting blast radius even if injection succeeds. |
 | **Broad Permissions** | **Human-in-the-Loop**: Arcade handles authorization friction. "Active Mode" is temporary and audit-logged. |
 
-## 5. Development Plan
-
-### Phase 1: The Secure Foundation
-
-- Set up GCP Project & Rust boilerplate.
-- Implement the "Core Gateway" with Vertex AI integration.
-- Implement the "Secrets Manager" interface.
-- **Arcade Setup**: Initialize Arcade Integration for basic tools (Google Search, Gmail).
-
 ### Phase 2: The Action Layer
 
 - Build the **Wasm Plugin System** for local custom logic.
-- Integrate **Arcade Tool Execution** for major SaaS (GitHub, Slack, etc.).
-- Port key capabilities (Calendar, Docs) using Arcade-managed credentials.
+- Integrate **Arcade Tool Execution** for major SaaS (GitHub, Calendar).
+- Implement **Generic IMAP** module for heavy email triage.
+- Implement **Obsidian Bridge** for local note integration.
+- Implement **Web Research** and **Home Assistant** modules.
 
-### Phase 3: The Interaction Layer
-
-- Connect to Messaging App (Telegram/Signal).
-- Implement the "Supervisor" security layer (Prompt Injection defense).
-
-### Phase 4: Migration (Optional)
+## 5. Migration (Optional)
 
 - Analyze legacy submodules (`mastermind-desktop`, `mastermind-obsidian`) for feature parity but *do not copy code directly* to maintain Rust/Security strictness.

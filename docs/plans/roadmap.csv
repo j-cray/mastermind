@@ -1,34 +1,38 @@
 Type,Subject,Description,Priority,EstHours,Assignee
-Phase,Phase 1: Secure Foundation,Initial Infrastructure and Core Security,High,40,Me
-Milestone,Infrastructure Ready,Project skeleton and GCP environment live,High,0,Me
-Task,Rust Project Init,Initialize Cargo workspace with axum/tokio,High,2,Me
-Task,Docker Setup,Create multi-stage Dockerfile for minimized container,High,3,Me
-Task,GCP Setup - Terraform,Terraform for Cloud Run, Cloud SQL, Secret Manager,High,8,Me
-Task,Cloud Build,Setup CI/CD pipeline in Cloud Build,High,4,Me
-Task,Database Schema,Design and apply initial PostgreSQL schema (Auth, Logs),High,4,Me
-Milestone,Cerebrum Live,"Core Gateway (""Cerebrum"") running and reachable",High,0,Me
-Task,Vertex AI Client,Implement Rust client for Gemini API,High,5,Me
-Task,Context Manager,Implement sliding window context logic,High,8,Me
-Task,Arcade Client Init,Basic client to talk to Arcade API,High,6,Me
-Phase,Phase 2: Action Layer,Tooling and Sandbox Implementation,High,60,Me
-Milestone,Tooling Active,Agent can verify email and execute safe tools,High,0,Me
-Task,Wasm Runtime,Integrate wasmtime for secure local execution,High,15,Me
-Task,Arcade - Gmail,Integrate Arcade Gmail tool and test auth flow,High,8,Me
-Task,Arcade - Search,Integrate Arcade Google Search tool,High,5,Me
-Task,Plugin Registry,Build dynamic dispatcher for tools,High,10,Me
-Milestone,Capabilities Expanded,Calendar and Docs verified,High,0,Me
-Task,Arcade - Calendar,Integrate Calendar capabilities via Arcade,High,8,Me
-Task,Arcade - Docs,Integrate Google Docs reading/writing via Arcade,High,8,Me
-Phase,Phase 3: Interaction Layer,User Interface and Safety Supervisor,High,50,Me
-Milestone,Interaction Live,Chat via Telegram/Signal active,High,0,Me
-Task,Telegram Bot API,Implement webhook listener for Telegram,High,10,Me
-Task,User Auth,Implement linking logic (User -> Telegram ID),High,5,Me
-Milestone,Guardian Active,Supervisor system enforcing safety policies,High,0,Me
-Task,Supervisor Logic,Implement dual-LLM check (Cortex security audit),High,15,Me
-Task,Approval UI,Implement interactive button flow for permissions,High,10,Me
-Task,Audit Logging,Structured logging for all tool usage,High,5,Me
-Phase,Phase 4: Migration & Polish,Legacy analysis and final hardening,Normal,40,Me
-Task,Legacy Analysis - Desktop,Review mastermind-desktop for missing features,Normal,5,Me
-Task,Legacy Analysis - Obsidian,Review mastermind-obsidian for workflows,Normal,5,Me
-Task,Red Teaming,Attempt prompt injection and sandbox escape,High,20,Me
-Milestone,Version 1.0 Release,Ready for personal daily driver use,High,0,Me
+Phase,Phase 1: Secure Foundation,Initial Infrastructure and Core Security,High,40,Jake Wray
+Milestone,Infrastructure Ready,Project skeleton and GCP environment live,High,0,Jake Wray
+Task,Rust Project Init,Initialize Cargo workspace with axum/tokio,High,2,Jake Wray
+Task,Docker Setup,Create multi-stage Dockerfile for minimized container,High,3,Jake Wray
+Task,GCP Setup - Terraform,Terraform for Cloud Run, Cloud SQL, Secret Manager,High,8,Jake Wray
+Task,Cloud Build,Setup CI/CD pipeline in Cloud Build,High,4,Jake Wray
+Task,Database Schema,Design and apply initial PostgreSQL schema (Auth, Logs),High,4,Jake Wray
+Milestone,Cerebrum Live,"Core Gateway (""Cerebrum"") running and reachable",High,0,Jake Wray
+Task,Vertex AI Client,Implement Rust client for Gemini API,High,5,Jake Wray
+Task,Context Manager,Implement sliding window context logic,High,8,Jake Wray
+Task,Arcade Client Init,Basic client to talk to Arcade API,High,6,Jake Wray
+Phase,Phase 2: Action Layer,Tooling and Sandbox Implementation,High,60,Jake Wray
+Milestone,Tooling Active,Agent can verify email and execute safe tools,High,0,Jake Wray
+Task,Wasm Runtime,Integrate wasmtime for secure local execution,High,15,Jake Wray
+Task,IMAP Module - Core,Secure Rust IMAP client for general mail providers,High,12,Jake Wray
+Task,IMAP Module - Skills,"Triage skills: Unsubscribe, Spam Flagging, Archiving",High,10,Jake Wray
+Task,Arcade - Calendar,Integrate Calendar Write capabilities via Arcade,High,8,Jake Wray
+Task,Arcade - GitHub,Integrate Non-Destructive GitHub actions (Comment/Review),High,8,Jake Wray
+Task,Obsidian Bridge,Filewatcher/Parser for local Obsidian Vault integration,High,15,Jake Wray
+Milestone,Capabilities Expanded,Calendar, Email, and Obsidian active,High,0,Jake Wray
+Task,Web Researcher,Multi-step deep search agent using Arcade/Serper,High,15,Jake Wray
+Task,Home Assistant Bridge,Connect to HA WebSocket API for device control,High,10,Jake Wray
+Task,RSS Monitor,Background feed fetcher for Proactivity Engine,High,8,Jake Wray
+Phase,Phase 3: Interaction Layer,User Interface and Safety Supervisor,High,50,Jake Wray
+Milestone,Interaction Live,Chat via Signal/Matrix active,High,0,Jake Wray
+Task,Signal Integration,Implement Signal CLI or libsignal-bridge,High,10,Jake Wray
+Task,Matrix Integration,Implement Matrix SDK for Rust,High,10,Jake Wray
+Task,Voice Processing,"Implement Voice Note handling (Transcribe -> Action)",High,8,Jake Wray
+Milestone,Guardian Active,Supervisor system enforcing safety policies,High,0,Jake Wray
+Task,Proactivity Engine,Implement Level 3 proactive scheduler,High,12,Jake Wray
+Task,Supervisor Logic,Implement dual-LLM check (Cortex security audit),High,15,Jake Wray
+Task,Approval UI,Implement interactive button flow for permissions,High,10,Jake Wray
+Phase,Phase 4: Migration & Polish,Legacy analysis and final hardening,Normal,40,Jake Wray
+Task,Legacy Analysis - Desktop,Review mastermind-desktop for missing features,Normal,5,Jake Wray
+Task,Legacy Analysis - Obsidian,Review mastermind-obsidian for workflows,Normal,5,Jake Wray
+Task,Red Teaming,Attempt prompt injection and sandbox escape,High,20,Jake Wray
+Milestone,Version 1.0 Release,Ready for personal daily driver use,High,0,Jake Wray
