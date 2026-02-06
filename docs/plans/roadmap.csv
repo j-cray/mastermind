@@ -6,27 +6,34 @@ Task,Docker Setup,Create multi-stage Dockerfile for minimized container,High,3,J
 Task,GCP Setup - Terraform,Terraform for Cloud Run, Cloud SQL, Secret Manager,High,8,Jake Wray
 Task,Cloud Build,Setup CI/CD pipeline in Cloud Build,High,4,Jake Wray
 Task,Database Schema,Design and apply initial PostgreSQL schema (Auth, Logs),High,4,Jake Wray
-Milestone,Cerebrum Live,"Core Gateway (""Cerebrum"") running and reachable",High,0,Jake Wray
+Task,Observability Setup,Configure OpenTelemetry and Cloud Trace,High,6,Jake Wray
+Milestone,Orchestrator Live,"Core Gateway (""Cerebrum"") running and reachable",High,0,Jake Wray
 Task,Vertex AI Client,Implement Rust client for Gemini API,High,5,Jake Wray
 Task,Context Manager,Implement sliding window context logic,High,8,Jake Wray
 Task,Arcade Client Init,Basic client to talk to Arcade API,High,6,Jake Wray
 Phase,Phase 2: Action Layer,Tooling and Sandbox Implementation,High,60,Jake Wray
 Milestone,Tooling Active,Agent can verify email and execute safe tools,High,0,Jake Wray
+Task,MCP Host,Implement MCP Client Host in Cerebrum,High,15,Jake Wray
 Task,Wasm Runtime,Integrate wasmtime for secure local execution,High,15,Jake Wray
-Task,IMAP Module - Core,Secure Rust IMAP client for general mail providers,High,12,Jake Wray
-Task,IMAP Module - Skills,"Triage skills: Unsubscribe, Spam Flagging, Archiving",High,10,Jake Wray
+Task,MCP Tool - IMAP Core,Secure Rust IMAP client for general mail providers,High,12,Jake Wray
+Task,MCP Tool - IMAP Skills,"Triage skills: Unsubscribe, Spam Flagging, Archiving",High,10,Jake Wray
 Task,Arcade - Calendar,Integrate Calendar Write capabilities via Arcade,High,8,Jake Wray
 Task,Arcade - GitHub,Integrate Non-Destructive GitHub actions (Comment/Review),High,8,Jake Wray
-Task,Obsidian Bridge,Filewatcher/Parser for local Obsidian Vault integration,High,15,Jake Wray
+Task,MCP Tool - Obsidian,Filewatcher/Parser for local Obsidian Vault integration,High,15,Jake Wray
 Milestone,Capabilities Expanded,Calendar, Email, and Obsidian active,High,0,Jake Wray
-Task,Web Researcher,Multi-step deep search agent using Arcade/Serper,High,15,Jake Wray
-Task,Home Assistant Bridge,Connect to HA WebSocket API for device control,High,10,Jake Wray
-Task,RSS Monitor,Background feed fetcher for Proactivity Engine,High,8,Jake Wray
+Task,Researcher Agent,Multi-step deep search agent using Arcade/Serper,High,15,Jake Wray
+Task,Coder Agent,Specialized agent for writing/executing code,High,15,Jake Wray
+Task,MCP Tool - Home Assistant,Connect to HA WebSocket API for device control,High,10,Jake Wray
+Task,MCP Tool - RSS Monitor,Background feed fetcher for Proactivity Engine,High,8,Jake Wray
+Task,Memory System - Vector Store,Integrate pgvector for episodic memory,High,10,Jake Wray
+Task,Memory System - RAG Pipeline,Implement semantic search over docs/notes,High,12,Jake Wray
+Task,MCP Tool - Code Interpreter,Design and implement secure Wasm/Firecracker sandbox,High,20,Jake Wray
 Phase,Phase 3: Interaction Layer,User Interface and Safety Supervisor,High,50,Jake Wray
 Milestone,Interaction Live,Chat via Signal/Matrix active,High,0,Jake Wray
 Task,Signal Integration,Implement Signal CLI or libsignal-bridge,High,10,Jake Wray
 Task,Matrix Integration,Implement Matrix SDK for Rust,High,10,Jake Wray
 Task,Voice Processing,"Implement Voice Note handling (Transcribe -> Action)",High,8,Jake Wray
+Task,ReAct Planner,Implement Iterative Thought-Plan-Act-Observe loop,High,15,Jake Wray
 Milestone,Guardian Active,Supervisor system enforcing safety policies,High,0,Jake Wray
 Task,Proactivity Engine,Implement Level 3 proactive scheduler,High,12,Jake Wray
 Task,Supervisor Logic,Implement dual-LLM check (Cortex security audit),High,15,Jake Wray
